@@ -1,0 +1,23 @@
+TODO:
+ * Make the interface RESTful:
+   - POST to / posts a new blog entry
+   - POST to /<int>/ adds a new comment to the blog entry
+   - and so on; have separate 'new' URLs only to render web forms.
+   - implies quite a lot of refactoring ^^
+   - see http://flask.pocoo.org/docs/views/#method-views-for-apis
+ * postDate should be called entryDate really
+ * Test the database!  With unittest
+ * Generalize deletion / hiding comments and posts so that <comment>/<action>
+ and <post>/<action> could call the same action (which should be very similar
+ for both cases).
+ * Better template inheritance (don't specify how to render a post twice --
+ once on the main page, once individually at /<pId>.
+ * Transform the whole thing into a huge knowledge graph, where there's no
+ distinction beteween comments and posts.
+   - Make users link posts together; create their own posts and link them to
+   the existing graph.
+ * next -> previous <- post in show_post
+ * Make postDate hang to the left from the postTitle in the margin space.
+ * Add 'read until the end' action.
+ * Treat posts without a title as unimportant.
+ * Generate a list of all available posts (sort of 'quick view' of what's there)

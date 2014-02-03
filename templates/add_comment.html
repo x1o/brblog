@@ -1,0 +1,20 @@
+{% extends "bare_base.html" %}
+
+{% block title %}
+  New comment
+{% endblock title %}
+
+{% block content %}
+  <form action="" method="post" accept-charset="utf-8">
+    <p>
+    Name <input type="text" name="author" value=""><br>
+    Subject <input type="text" name="subject" value="">
+    </p>
+    <p>What I want to say is this:</p>
+    <textarea name="body" rows="10" cols="40" required></textarea>
+    <p><input type="submit" value="Dispatch"></p>
+  </form>
+{% endblock content %}
+
+
+{# vim: set ft=htmldjango: #}

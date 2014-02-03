@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% if to_p == last_p %}
+  Main
+{% else %}
+  Blog entries from {{ from_p }} to {{ to_p }}
+{% endif %}
+{% endblock title %}
+
+{# FIXME: very messy #}
+{% block content %}
+{# {% for post in posts|sort(reverse=true, attribute='pId') if post.isVisible %} #}
+  <div class="post_list">
+    {% for post in posts if post.isVisible %}
+      <article>
+        {% if post.isVisible %}
+          {% set hide_action = "Hide" %}
+        {% else %}
+          {% set hide_action = "Unhide" %}
+        {% endif %}
+        <h2 class="post_title"><a href="{{ url_for('show_post', pId=post.pId) }}">{{ post.title|safe }}</a></h2>
+        <!-- <h2 class="post_title">{{ post.title|safe }}</h2> -->
+        {% if session.logged_in %}<p>[<a href="{{ url_for('hide_post', pId=post.pId) }}">{{ hide_action }}</a>
+           | <a href="{{ url_for('kill_post', pId=post.pId) }}">Kill</a>]</p>{% endif %}
+
+        <div id="post_date">{{ post.date }} at <abbr title={{ post.time }}> {{ post.pod_name }}</abbr></div></p>
+
+        <div class="post_body">
+          {{ post.body|markdown }}
+        </div>
+
+        <p>
+          {% if post.comment_count == 0 %}
+            No comments so far. {% set w="one" %}
+          {% elif post.comment_count == 1 %}
+            <a href="{{ url_for('show_post', pId=post.pId) }}#comments">{{ post.comment_count }} comment</a>. {% set w="another" %}
+          {% else %}
+            <a href="{{ url_for('show_post', pId=post.pId) }}#comments">{{ post.comment_count }} comments</a>. {% set w="another" %}
+          {% endif %}
+          <a href="{{ url_for('add_comment', pId=post.pId) }}">Add {{ w }}</a>.
+        </p>
+      </article>
+      {# <span style="text-align: center; text-size: 2em">&#10087;</span> #}
+    {% else %}
+      <em>No posts found.  Goodbye.</em>
+    {% endfor %}
+  </div>
+
+  {# This block is funny.  Although I can't readily think of a way to move the
+  logic into views. #}
+  <div id="arr_navi">
+    <p>
+      {% set step_p = config.POSTS_PER_PAGE %}
+      {% if to_p < last_p %}
+        {% if to_p + step_p > last_p %}
+          {% set left_from = last_p %}
+        {% else %}
+          {% set left_from = to_p + step_p %}
+        {% endif %}
+        {% set left_to = to_p + 1 %}
+        <a href="{{ url_for('show_n_posts', from_p=left_from, to_p=left_to) }}">&#x2190;</a>
+      {% endif %}
+      Showing blog entries from {{ from_p }} to {{ to_p }}
+      {% if from_p > 1 %}
+        {% if from_p - step_p < 1 %}
+          {% set right_to = 1 %}
+        {% else %}
+          {% set right_to = from_p - step_p %}
+        {% endif %}
+        {% set right_from = from_p - 1 %}
+        <a href="{{ url_for('show_n_posts', from_p=right_from, to_p=right_to) }}">&#x2192;</a>
+      {% endif %}
+    </p>
+  </div>
+{% endblock content %}
+
+{# vim: set ft=htmldjango: #}

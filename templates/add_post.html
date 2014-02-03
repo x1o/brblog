@@ -1,0 +1,19 @@
+{% extends "bare_base.html" %}
+
+{% block title %}
+  Add a new post
+{% endblock title %}
+
+{% block content %}
+  <div class="big_textarea">
+    <form action="" method="post" accept-charset="utf-8">
+      {# <fieldset><legend>Hi</legend></fieldset> #}
+      <p>Subject matter: <input type="text" name="subject" value="", size="40"><br>
+      Is visible: <input type="checkbox" name="is_visible" value="1" checked></p>
+      <textarea name="body" rows="30" cols="80" required></textarea>
+      <p><input type="submit" value="Post"></p>
+    </form>
+  </div>
+{% endblock content %}
+
+{# vim: set ft=htmldjango: #}

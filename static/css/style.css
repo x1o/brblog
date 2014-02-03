@@ -1,0 +1,114 @@
+body {
+    margin: 0px 90px 0px 90px;
+    /* padding: 10px; */
+}
+
+article {
+    margin-top: 60px;
+    /* margin-bottom: 50px; */
+}
+
+#blog_title {
+    font-size: 2.5em;
+    letter-spacing: 20px;
+    text-align:right;
+    border-bottom: 2px dashed #eee;
+    margin-top: 60px;
+    margin-bottom: 0px;
+}
+
+.content {
+    /* padding-left: 10px; */
+    /* padding-right: 10px; */
+    /* border-bottom: 2px dashed #eee; */
+    /* border-top: 2px dashed #eee; */
+}
+
+nav {
+    text-align: right;
+    /* font-size: 0.9em; */
+    /* margin-top: 1px; */
+    /* margin-bottom: 10px; */
+    /* background: gray; */
+    padding: 10px;
+}
+
+.post_title a   { text-decoration: none; color: black }
+/* .post_title a:link {  color: black; } */
+/* .post_title a:visited {  color: black; } */
+.post_title a:hover { color: black; text-decoration: underline; } 
+
+h2.post_title {
+    /* border-bottom: 1px dotted; */
+    /* letter-spacing: 1px; */
+}
+
+.comment_header a { text-decoration: none; color: black }
+.comment_header a:hover { color: black; text-decoration: overline; } 
+/* h4.comment_header  */
+
+#post_date  {
+    text-align: left;
+    font-style: italic;
+    margin-top: 25px;
+}
+
+.post_list { background: url('/static/smile.png') no-repeat right bottom; }
+#arr_navi {
+    text-align: center;
+    margin-top: 30px;
+}
+.post_body  {
+    text-align: justify;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    /* text-indent: 15px; */
+}
+
+/* ul.flashes    { */
+    /* list-style-type: none; */
+    /* padding: 0px; */
+    /* margin: 0px; */
+/* }; */
+
+/* .flashes li.error { */
+    /* background-color: red; */
+/* } */
+
+/* .flashes li.ok { */
+    /* background-color: green; */
+/* } */
+
+/* .flashes li.info { */
+    /* background-color: blue; */
+/* } */
+
+.page_footer p {
+    border-top: 2px dashed #eee;
+    padding: 10px 0px;
+    /* margin-top: 30px; */
+}
+
+textarea {
+    font-family: monospace;
+}
+
+.comment_header {
+    margin-top: 40px;
+}
+
+.post_headers {
+    margin-bottom: -20px;
+}
+
+.post_comments h2 {
+    margin-top: 50px;
+    margin-bottom: 20px;
+    border-bottom: 1px dotted #aaa;
+}
+
+
+
+.post_comments {
+    margin-bottom: 30px;
+}

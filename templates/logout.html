@@ -1,0 +1,24 @@
+{#
+{% extends "bare_base.html" %}
+
+{% block title %}
+  {% if was_logged_in %}
+    Goodbye
+  {% else %}
+    ...
+  {% endif %}
+{% endblock title %}
+
+{% block content %}
+<h1>Logout</h1>
+
+{% if was_logged_in %}
+  Goodbye and see you again.
+{% else %}
+  You aren't logged in, you know?  Logging out doesn't make sense.  <a href="{{ url_for('show_n_posts') }}">Go</a>.
+{% endif %}
+
+{% endblock content %}
+#}
+
+{# vim: set ft=htmldjango: #}

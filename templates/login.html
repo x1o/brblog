@@ -1,0 +1,25 @@
+{% extends "bare_base.html" %}
+
+{% block title %}
+  Try to login
+{% endblock title %}
+
+{% block header %}
+  <h1>Login</h1>
+{% endblock header %}
+
+{% block content %}
+
+  {% if not session.logged_in %}
+    <form action="" method="post" accept-charset="utf-8">
+      <em>And the secret word is </em>
+      <input type="password" name="password" value="" id="password">
+      <p><input type="submit" value="I shall pass &#x21E5;"></p>
+    </form>
+  {% else %}
+     Logged in.  <a href="{{ url_for('logout') }}">Logout</a> if you so want.
+  {% endif %}
+
+{% endblock content %}
+
+{# vim: set ft=htmldjango: #}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{# FIXME: Oooh this page is ugly #}
+
+{% block title %}
+  Comment # {{ comment.cId }}
+  {% if comment.title %}
+  "{{ comment.title }}"
+  {% endif %}
+{% endblock title %}
+
+{% block content %}
+<p>On {{ comment.postDate }}<br/>{{ comment.author|default("an anonymous user", true) }} decided to make the following comment regarding the blog post<br/><a href="/{{ comment.pId }}" >"{{ post_title }}"</a>:</p>
+
+<div class="comment_body">
+  <p>{{ comment.body }}</p>
+</div>
+
+{% if comment.mark %}
+<p>We think {{ comment.author|default("the anonymous user") }} is {{ comment.mark }}.</p>
+{% endif %}
+
+{% endblock content %}
+
+{# vim: set ft=htmldjango: #}

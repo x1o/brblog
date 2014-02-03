@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}
+  #{{ post.pId }} {{ post.title }}
+{% endblock title %}
+
+{% block nav %}
+{# <li><a href="{{ request.path }}/new">+ (comment)</a></li> #}
+  <a href="{{ request.path }}/new">Add a comment</a> {{ config.SEP }}
+{% endblock nav %}
+
+{% block content %}
+  <div class="post_headers">
+    <dl>
+      <dt>Blog post number </dt> 
+      <dd>{{ post.pId }}<br/></dd>
+      <dt>Written on</dt>
+      <dd>{{ post.postDate }}</dd>
+    </dl>
+    {% if session.logged_in %}
+      {% if post.isVisible %}
+        {% set hide_action = "Hide" %}
+      {% else %}
+        {% set hide_action = "Unhide" %}
+      {% endif %}
+      <p>Take action:
+        <a href="{{ url_for('hide_post', pId=post.pId) }}">{{ hide_action }}</a>
+         | <a href="{{ url_for('kill_post', pId=post.pId) }}">Kill</a>
+         | Edit
+      </p>
+    {% endif %}
+  </div>
+
+  <article>
+    <h2 class="post_title">{{ post.title|safe }}</h2>
+
+    <div class="post_body">
+      {{ post.body|markdown }} 
+    </div>
+  </article>
+
+  <div class="post_comments">
+    <a href="#comments"></a><h2>Comments:</h2>
+    {% for comment in comments if comment.isVisible %}
+    <div class="comment_header">
+      {# <p>[1/k] {{ comment.title }} [!] [_] [x]</p> #}
+      <h4><a href="{{ url_for('show_comment', pId=post.pid, cId=comment.cId) }}">{{ comment.title }}</a> <a href="#{{ comment.cId }}"><span style="color: lightgray">#</span></a></h4>
+    </div>
+    <div class="comment_body">
+      <p>{{ comment.body|safe }}</p>
+    </div>
+    <div class="comment_authorship">
+      <p>So wrote {{ comment.author|default("an anonymous user", true) }}
+      on {{ comment.postDate }}{% if comment.mark %} and was marked '{{ comment.mark }}' for that{% endif %}.
+      </p>
+    </div>
+    {% else %}
+    <i>None so far &mdash; <a href="{{ url_for('add_comment', pId=post.pId) }}">be the first. </a></i>
+    {% endfor %}
+  </div>
+{% endblock content %}
+
+{# vim: set ft=htmldjango: #}

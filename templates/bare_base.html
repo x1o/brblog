@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  {% block head %}
+    <title>{{ config.BLOG_TITLE }} :: {% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
+    <meta charset="utf-8" />
+  {% endblock head %}
+</head>
+
+<body>
+  <nav>
+  {# FIXME: This is wrong wrong wrong wrong.  Move the logic to where it belongs
+  -- to the brblog.py #}
+    {% if request.path != "/" %}
+    {# <li><a href="{{ url_for('show_n_posts') }}">&#x21A9; (main)</a></li> #}
+      <a href="{{ url_for('show_n_posts') }}">Back to the main page</a>
+        {% if request.path != "/login" %}
+          {{ config.SEP }}
+        {% endif %}
+    {% endif %}
+
+    {% block nav %}{% endblock nav %}
+
+    {# this is pretty ugly #}
+    {% if session.logged_in
+       and request.path != "/new"
+       and request.path|replace("/", "", 1)|int == 0 %}
+       {# <li><a href="{{ url_for('add_post') }}">+ (new)</a></li> #}
+       <a href="{{ url_for('add_post') }}">Add a new post</a> {{ config.SEP }}
+    {% endif %}
+
+    {% if request.path != "/login" %}
+      {% if session.logged_in %}
+      {# <li><a href="{{ url_for('logout') }}">&#x21E4; (logout)</a></li> #}
+      <a href="{{ url_for('logout') }}">Log out</a>
+      {% else %}
+      {# <li><a href="{{ url_for('login') }}">&#x21E5; (login)</a></li> #}
+      <a href="{{ url_for('login') }}">Log in</a>
+      {% endif %}
+    {% endif %}
+
+  </nav>
+
+  <div class="page_header">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <ul class="flashes">
+        {% for category, message in messages %}
+          <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {%endwith %}
+
+    {% block header %}{% endblock header %}
+  </div>
+
+  <div class="content">
+    {% block content %}
+    {% endblock content %}
+  </div>
+
+  <div class="page_footer">
+    {% block footer %}
+    {% endblock footer %}
+  </div>
+</body>
+
+</html>
+
+{# vim: set ft=htmldjango: #}
