@@ -47,6 +47,10 @@
     {% endfor %}
   </div>
 
+  from_p: {{ from_p }}<br>
+  to_p: {{ to_p }}<br>
+  last_p: {{ last_p }}<br>
+
   {# This block is funny.  Although I can't readily think of a way to move the
   logic into views. #}
   <div id="arr_navi">
@@ -61,7 +65,7 @@
         {% set left_to = to_p + 1 %}
         <a href="{{ url_for('show_n_posts', from_p=left_from, to_p=left_to) }}">&#x2190;</a>
       {% endif %}
-      Showing blog entries from {{ from_p }} to {{ to_p }}
+      Showing blog entries from {{ to_p }} to {{ from_p }}
       {% if from_p > 1 %}
         {% if from_p - step_p < 1 %}
           {% set right_to = 1 %}

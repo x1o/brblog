@@ -74,7 +74,7 @@ def hour_to_pod(hour):
 
 @app.route('/')
 @app.route('/<from_p>~<to_p>')
-def show_n_posts(from_p='last', to_p='-%s' % app.config['POSTS_PER_PAGE']):
+def show_n_posts(from_p='last', to_p='-%s' % (app.config['POSTS_PER_PAGE'] - 1)):
     def args_error(msg=''):
         err_msg = 'Invalid arguments to show_n_posts: %s, %s %s' % (from_p, to_p, msg)
         flash(err_msg, 'error')
@@ -90,7 +90,7 @@ def show_n_posts(from_p='last', to_p='-%s' % app.config['POSTS_PER_PAGE']):
         if from_p <= 0:
             return args_error('(first argument should be greater than zero)')
         if to_p < 0:
-            if abs(to_p) > abs(from_p):
+            if abs(to_p) >= abs(from_p):
                 to_p = 1
             else:
                 to_p = from_p + to_p

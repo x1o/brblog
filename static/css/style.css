@@ -53,7 +53,11 @@ h2.post_title {
     margin-top: 25px;
 }
 
-.post_list { background: url('/static/smile.png') no-repeat right bottom; }
+.post_list {
+	background: url('/static/smile.png') no-repeat right bottom;
+	margin-top: 20px;
+}
+
 #arr_navi {
     text-align: center;
     margin-top: 30px;

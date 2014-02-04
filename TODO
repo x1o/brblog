@@ -21,3 +21,4 @@ TODO:
  * Add 'read until the end' action.
  * Treat posts without a title as unimportant.
  * Generate a list of all available posts (sort of 'quick view' of what's there)
+ * config['POSTS_PER_PAGE'] = 1 doesn't work; fix the logic!
