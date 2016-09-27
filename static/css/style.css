@@ -116,3 +116,9 @@ textarea {
 .post_comments {
     margin-bottom: 30px;
 }
+
+.floating_text {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}

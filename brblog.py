@@ -24,7 +24,10 @@ app.config.from_pyfile('config.py')
 @app.before_request
 def init_db():
     if not hasattr(g, 'db'):
-        g.db = sqlite3.connect(app.config['DB_FILE'])
+        import os
+        project_root = os.path.dirname(os.path.realpath(__file__))
+        db_fn = os.path.join(project_root, app.config['DB_FILE'])
+        g.db = sqlite3.connect(db_fn)
         g.db.row_factory = sqlite3.Row
         g.db.execute('pragma foreign_keys = on')
 
@@ -85,7 +88,10 @@ def show_n_posts(from_p='last', to_p='-%s' % (app.config['POSTS_PER_PAGE'] - 1))
     if from_p == 'last':
         from_p = last_p
     try:
-        from_p = int(from_p)
+        try:
+            from_p = int(from_p)
+        except TypeError: # from_p is None
+            return render_template('show_fresh_site.html')
         to_p = int(to_p)
         if from_p <= 0:
             return args_error('(first argument should be greater than zero)')

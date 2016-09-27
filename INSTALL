@@ -1,5 +1,21 @@
-# sudo apt-get install python-virtualenv
+# sudo apt-get apache2 python-virtualenv sqlite3 libapache2-mod-wsgi
+# clone to /srv/www/<sitename>
+useradd -r -s /bin/false -d / brblog
+# chown brblog /srv/www/<sitename>
+# chmod 750 /srv/www/<sitename>
+# cd /srv/www/<sitename>
 virtualenv venv
 . venv/bin/activate
 pip install Flask
 pip install Flask-Markdown
+# copy apache_conf and modify it appropriately
+a2ensite <sitename>
+service apache2 reload
+# copy brblog_dist.wsgi and modify it appropriately
+# remember output of these:
+openssl rand -base64 32
+make_pw_digest.py
+# copy config.py and modify it appropriately
+sqlite3 brblog.db < brblog.sql
+chown brblog brblog.db
+add <sitename> to your DNS
