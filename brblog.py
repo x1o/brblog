@@ -4,14 +4,17 @@ from hashlib import sha256
 from base64 import b64encode
 import sqlite3
 from flaskext.markdown import Markdown
+from flask_json import FlaskJSON, json_response
 
 app = Flask(__name__,
             static_folder='static',
             template_folder='templates')
 md = Markdown(app)
+json = FlaskJSON(app)
 
 # app.config.from_object(__name__)
 app.config.from_pyfile('config.py')
+# app.config['JSON_ADD_STATUS'] = False   # no status: 200 in response
 
 # def init_db(db_file):
    # return sqlite3.connect(db_file)
@@ -250,7 +253,7 @@ def show_comment(pId, cId):
 @app.route('/<int:pId>/new', methods=['GET', 'POST'])
 def add_comment(pId):
     if request.method == 'GET':
-        return render_template('add_comment.html')
+        return render_template('add_comment.html', pId=pId)
     else:
         if not request.form['body']:
             flash('Empty comments are no good.', 'error')
@@ -270,6 +273,15 @@ def add_comment(pId):
                                request.form['author']))
         g.db.commit()
         return redirect('/'+str(pId))
+
+
+@app.route('/<int:pId>/get_comments')
+def get_comments_json(pId):
+    comments = g.db.execute('select * from CommentFull where pId = ? and isVisible = 1',
+                            (pId,)).fetchall()
+    return json_response(comments=comments,
+                         headers_={'Access-Control-Allow-Origin': '*'})
+
 
 @app.errorhandler(404)
 def page_not_found(error):
