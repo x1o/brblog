@@ -1,20 +1,53 @@
 body {
-    margin: 0px 90px 0px 90px;
+    margin: 0em 8em;
     /* padding: 10px; */
 }
 
-article {
-    margin-top: 60px;
-    /* margin-bottom: 50px; */
+nav {
+    text-align: right;
+    /* font-size: 0.9em; */
+    /* background: gray; */
+    padding: 1em 0em;
 }
 
 #blog_title {
-    font-size: 2.5em;
-    letter-spacing: 20px;
+    font-size: 4em;
+    letter-spacing: 0.5ex;
     text-align:right;
     border-bottom: 2px dashed #eee;
-    margin-top: 60px;
-    margin-bottom: 0px;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.post_title a   {
+	text-decoration: none;
+	color: black
+}
+
+.post_title a:hover {
+	color: black;
+	text-decoration: underline;
+} 
+
+.post_meta h2 {
+	margin: 0 1ex 0 0;
+	display: inline-block;
+}
+
+p {
+	margin-bottom: 1em;
+}
+
+article {
+    margin-bottom: 3em;
+}
+
+a:link {
+	color:black;
+}
+
+a:visited {
+	color:gray;
 }
 
 .content {
@@ -24,48 +57,40 @@ article {
     /* border-top: 2px dashed #eee; */
 }
 
-nav {
+.post_controls {
+	display: inline-block;
+}
+
+.comment_header a {
+	text-decoration: none;
+	color: black
+}
+.comment_header a:hover {
+	color: black;
+	text-decoration: overline;
+} 
+
+.post_date  {
     text-align: right;
-    /* font-size: 0.9em; */
-    /* margin-top: 1px; */
-    /* margin-bottom: 10px; */
-    /* background: gray; */
-    padding: 10px;
-}
-
-.post_title a   { text-decoration: none; color: black }
-/* .post_title a:link {  color: black; } */
-/* .post_title a:visited {  color: black; } */
-.post_title a:hover { color: black; text-decoration: underline; } 
-
-h2.post_title {
-    /* border-bottom: 1px dotted; */
-    /* letter-spacing: 1px; */
-}
-
-.comment_header a { text-decoration: none; color: black }
-.comment_header a:hover { color: black; text-decoration: overline; } 
-/* h4.comment_header  */
-
-#post_date  {
-    text-align: left;
     font-style: italic;
-    margin-top: 25px;
 }
 
 .post_list {
-	background: url('/static/smile.png') no-repeat right bottom;
-	margin-top: 20px;
+	/* background: url('/static/smile.png') no-repeat right bottom; */
+	/* margin-top: 20px; */
 }
 
 #arr_navi {
     text-align: center;
-    margin-top: 30px;
+    margin-bottom: 2em;
+    /* margin-top: 30px; */
 }
+
 .post_body  {
     text-align: justify;
-    margin-top: 25px;
-    margin-bottom: 25px;
+    margin: 2em 0;
+    /* margin-top: -10px; */
+    /* margin-bottom: 25px; */
     /* text-indent: 15px; */
 }
 
@@ -87,7 +112,7 @@ h2.post_title {
     /* background-color: blue; */
 /* } */
 
-.page_footer p {
+.page_footer {
     border-top: 2px dashed #eee;
     padding: 10px 0px;
     /* margin-top: 30px; */
@@ -97,28 +122,31 @@ textarea {
     font-family: monospace;
 }
 
+.comments_info {
+	margin-top: 1em;
+	text-align: right;
+}
+
 .comment_header {
-    margin-top: 40px;
+    /* margin-top: 40px; */
 }
 
 .post_headers {
-    margin-bottom: -20px;
+    /* margin-bottom: -20px; */
 }
 
 .post_comments h2 {
-    margin-top: 50px;
-    margin-bottom: 20px;
-    border-bottom: 1px dotted #aaa;
+    /* margin-top: 50px; */
+    /* margin-bottom: 20px; */
+    /* border-bottom: 1px dotted #aaa; */
 }
 
-
-
 .post_comments {
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
 }
 
 .floating_text {
     text-align: center;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    /* margin-top: 30px; */
+    /* margin-bottom: 30px; */
 }

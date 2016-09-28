@@ -20,32 +20,36 @@
         {% else %}
           {% set hide_action = "Unhide" %}
         {% endif %}
-        <h2 class="post_title"><a href="{{ url_for('show_post', pId=post.pId) }}">{{ post.title|safe }}</a></h2>
-        <!-- <h2 class="post_title">{{ post.title|safe }}</h2> -->
-        {% if session.logged_in %}<p>[<a href="{{ url_for('hide_post', pId=post.pId) }}">{{ hide_action }}</a>
-           | <a href="{{ url_for('kill_post', pId=post.pId) }}">Kill</a>]</p>{% endif %}
+        <div class="post_meta">
+          <h2 class="post_title"><a href="{{ url_for('show_post', pId=post.pId) }}">{{ post.title|safe }}</a></h2><div class="post_controls">
+            {% if session.logged_in %}
+            [<a href="{{ url_for('hide_post', pId=post.pId) }}">{{ hide_action }}</a>
+              {{config.SEP}} <a href="{{ url_for('kill_post', pId=post.pId) }}">Kill</a>]
+            {% endif %}
+          </div>
 
-        <div id="post_date">{{ post.date }} at <abbr title={{ post.time }}> {{ post.pod_name }}</abbr></div></p>
+        </div>
 
         <div class="post_body">
           {{ post.body|markdown }}
         </div>
 
-        <p>
-          {% if post.comment_count == 0 %}
-            No comments so far.
-            {% set w="one" %}
-          {% else %}
-            {% if post.comment_count == 1 %}
-              {% set pl_end="" %}
+          <div class="post_date">{{ post.date }} at <abbr title={{ post.time }}> {{ post.pod_name }}</abbr></div>
+          <div class="comments_info">
+            {% if post.comment_count == 0 %}
+              No comments so far.
+              {% set w="one" %}
             {% else %}
-              {% set pl_end="s" %}
+              {% if post.comment_count == 1 %}
+                {% set pl_end="" %}
+              {% else %}
+                {% set pl_end="s" %}
+              {% endif %}
+              <a href="{{ url_for('show_post', pId=post.pId) }}#comments" onclick="loadComments({{post.pId}}); return false;">{{ post.comment_count }} comment{{pl_end}}</a>.
+              {% set w="another" %}
             {% endif %}
-            <a href="{{ url_for('show_post', pId=post.pId) }}#comments" onclick="loadComments({{post.pId}}); return false;">{{ post.comment_count }} comment{{pl_end}}</a>.
-            {% set w="another" %}
-          {% endif %}
-          <a href="{{ url_for('add_comment', pId=post.pId) }}" onclick="loadCommentForm({{post.pId}}); return false;">Add {{ w }}</a>.
-        </p>
+            <a href="{{ url_for('add_comment', pId=post.pId) }}" onclick="loadCommentForm({{post.pId}}); return false;">Add {{ w }}</a>.
+          </div>
       </article>
       {# <span style="text-align: center; text-size: 2em">&#10087;</span> #}
     {% else %}
@@ -56,28 +60,26 @@
   {# This block is funny.  Although I can't readily think of a way to move the
   logic into views. #}
   <div id="arr_navi">
-    <p>
-      {% set step_p = config.POSTS_PER_PAGE %}
-      {% if to_p < last_p %}
-        {% if to_p + step_p > last_p %}
-          {% set left_from = last_p %}
-        {% else %}
-          {% set left_from = to_p + step_p %}
-        {% endif %}
-        {% set left_to = to_p + 1 %}
-        <a href="{{ url_for('show_n_posts', from_p=left_from, to_p=left_to) }}">&#x2190;</a>
+    {% set step_p = config.POSTS_PER_PAGE %}
+    {% if to_p < last_p %}
+      {% if to_p + step_p > last_p %}
+        {% set left_from = last_p %}
+      {% else %}
+        {% set left_from = to_p + step_p %}
       {% endif %}
-      Showing blog entries from {{ to_p }} to {{ from_p }}
-      {% if from_p > 1 %}
-        {% if from_p - step_p < 1 %}
-          {% set right_to = 1 %}
-        {% else %}
-          {% set right_to = from_p - step_p %}
-        {% endif %}
-        {% set right_from = from_p - 1 %}
-        <a href="{{ url_for('show_n_posts', from_p=right_from, to_p=right_to) }}">&#x2192;</a>
+      {% set left_to = to_p + 1 %}
+      <a href="{{ url_for('show_n_posts', from_p=left_from, to_p=left_to) }}">&#x2190;</a>
+    {% endif %}
+    Showing blog entries from {{ to_p }} to {{ from_p }}
+    {% if from_p > 1 %}
+      {% if from_p - step_p < 1 %}
+        {% set right_to = 1 %}
+      {% else %}
+        {% set right_to = from_p - step_p %}
       {% endif %}
-    </p>
+      {% set right_from = from_p - 1 %}
+      <a href="{{ url_for('show_n_posts', from_p=right_from, to_p=right_to) }}">&#x2192;</a>
+    {% endif %}
   </div>
 {% endblock content %}
 
