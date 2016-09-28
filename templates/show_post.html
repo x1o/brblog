@@ -23,11 +23,10 @@
       {% else %}
         {% set hide_action = "Unhide" %}
       {% endif %}
-      <p>Take action:
+      Take action:
         <a href="{{ url_for('hide_post', pId=post.pId) }}">{{ hide_action }}</a>
-         | <a href="{{ url_for('kill_post', pId=post.pId) }}">Kill</a>
-         | Edit
-      </p>
+        {{config.SEP}} <a href="{{ url_for('kill_post', pId=post.pId) }}">Kill</a>
+        {{config.SEP}} Edit
     {% endif %}
   </div>
 
@@ -47,12 +46,11 @@
       <h4><a href="{{ url_for('show_comment', pId=post.pid, cId=comment.cId) }}">{{ comment.title }}</a> <a href="#{{ comment.cId }}"><span style="color: lightgray">#</span></a></h4>
     </div>
     <div class="comment_body">
-      <p>{{ comment.body|safe }}</p>
+      {{ comment.body|safe }}
     </div>
     <div class="comment_authorship">
-      <p>So wrote {{ comment.author|default("an anonymous user", true) }}
+      So wrote <span style="font-style: italic">{{ comment.author|default("an anonymous user", true) }}</span>
       on {{ comment.postDate }}{% if comment.mark %} and was marked '{{ comment.mark }}' for that{% endif %}.
-      </p>
     </div>
     {% else %}
     <i>None so far &mdash; <a href="{{ url_for('add_comment', pId=post.pId) }}">be the first. </a></i>

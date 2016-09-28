@@ -142,6 +142,9 @@ def show_n_posts(from_p='last', to_p='-%s' % (app.config['POSTS_PER_PAGE'] - 1))
 def show_post(pId):
     pId = str(pId)
     post = g.db.execute('select * from PostFull where pId = ?', (pId,)).fetchone()
+    if not post:
+        return (render_template('404.html', error='No post with pId %s found' % pId),
+                404)
     if not post['isVisible'] and not session.get('logged_in'):
         return render_template('sorry_hidden.html', entry_type='post')
     comments = g.db.execute('select * from CommentFull where pId = ?', (pId,))

@@ -70,7 +70,7 @@
       {% set left_to = to_p + 1 %}
       <a href="{{ url_for('show_n_posts', from_p=left_from, to_p=left_to) }}">&#x2190;</a>
     {% endif %}
-    Showing blog entries from {{ to_p }} to {{ from_p }}
+    Showing blog entries №№{{ from_p }}&ndash;{{ to_p }}
     {% if from_p > 1 %}
       {% if from_p - step_p < 1 %}
         {% set right_to = 1 %}
