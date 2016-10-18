@@ -3,6 +3,11 @@ body {
     /* padding: 10px; */
 }
 
+#page_container {
+    max-width: 80ex;
+    margin: 0 auto;
+}
+
 nav {
     text-align: right;
     /* font-size: 0.9em; */
